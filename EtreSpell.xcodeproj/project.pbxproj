@@ -10,6 +10,10 @@
 		A559C67718EE21FC0013CDD8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A559C67618EE21FC0013CDD8 /* Foundation.framework */; };
 		A559C67A18EE21FC0013CDD8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A559C67918EE21FC0013CDD8 /* main.m */; };
 		A559C67E18EE21FC0013CDD8 /* EtreSpell.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A559C67D18EE21FC0013CDD8 /* EtreSpell.1 */; };
+		A559C68C18EE225F0013CDD8 /* CheckSpelling.m in Sources */ = {isa = PBXBuildFile; fileRef = A559C68718EE225F0013CDD8 /* CheckSpelling.m */; };
+		A559C68D18EE225F0013CDD8 /* LineDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = A559C68918EE225F0013CDD8 /* LineDescriptor.m */; };
+		A559C68E18EE225F0013CDD8 /* LineEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A559C68B18EE225F0013CDD8 /* LineEnumerator.m */; };
+		A559C69018EE22810013CDD8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A559C68F18EE22810013CDD8 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +35,13 @@
 		A559C67918EE21FC0013CDD8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A559C67C18EE21FC0013CDD8 /* EtreSpell-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EtreSpell-Prefix.pch"; sourceTree = "<group>"; };
 		A559C67D18EE21FC0013CDD8 /* EtreSpell.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = EtreSpell.1; sourceTree = "<group>"; };
+		A559C68618EE225F0013CDD8 /* CheckSpelling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckSpelling.h; sourceTree = "<group>"; };
+		A559C68718EE225F0013CDD8 /* CheckSpelling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckSpelling.m; sourceTree = "<group>"; };
+		A559C68818EE225F0013CDD8 /* LineDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineDescriptor.h; sourceTree = "<group>"; };
+		A559C68918EE225F0013CDD8 /* LineDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineDescriptor.m; sourceTree = "<group>"; };
+		A559C68A18EE225F0013CDD8 /* LineEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineEnumerator.h; sourceTree = "<group>"; };
+		A559C68B18EE225F0013CDD8 /* LineEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineEnumerator.m; sourceTree = "<group>"; };
+		A559C68F18EE22810013CDD8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A559C69018EE22810013CDD8 /* Cocoa.framework in Frameworks */,
 				A559C67718EE21FC0013CDD8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +77,7 @@
 		A559C67518EE21FC0013CDD8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A559C68F18EE22810013CDD8 /* Cocoa.framework */,
 				A559C67618EE21FC0013CDD8 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -74,6 +87,12 @@
 			isa = PBXGroup;
 			children = (
 				A559C67918EE21FC0013CDD8 /* main.m */,
+				A559C68618EE225F0013CDD8 /* CheckSpelling.h */,
+				A559C68718EE225F0013CDD8 /* CheckSpelling.m */,
+				A559C68818EE225F0013CDD8 /* LineDescriptor.h */,
+				A559C68918EE225F0013CDD8 /* LineDescriptor.m */,
+				A559C68A18EE225F0013CDD8 /* LineEnumerator.h */,
+				A559C68B18EE225F0013CDD8 /* LineEnumerator.m */,
 				A559C67D18EE21FC0013CDD8 /* EtreSpell.1 */,
 				A559C67B18EE21FC0013CDD8 /* Supporting Files */,
 			);
@@ -139,6 +158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A559C68E18EE225F0013CDD8 /* LineEnumerator.m in Sources */,
+				A559C68D18EE225F0013CDD8 /* LineDescriptor.m in Sources */,
+				A559C68C18EE225F0013CDD8 /* CheckSpelling.m in Sources */,
 				A559C67A18EE21FC0013CDD8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
