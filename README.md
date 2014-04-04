@@ -3,6 +3,7 @@ EtreSpell
 
 Command-line spell checker for OS X.
 
+<pre>
 EtreSpell 1.1 © 2007-2014 Etresoft and John Daniel
 Usage: EtreSpell [options] [<files to check>]
   where [options] is one or more of:
@@ -16,3 +17,4 @@ Usage: EtreSpell [options] [<files to check>]
     --ignore=<words> = Comma-delimited list of words to ignore
   and [<files to check>] can be:
     - = Standard input
+</pre>
