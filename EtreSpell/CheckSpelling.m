@@ -11,6 +11,7 @@
 #import "LineDescriptor.h"
 
 // Some keys for the dictionaries inside the resulting array.
+#define kMisspelledFile  @"misspelledfile"
 #define kMisspelledLine  @"misspelledline"
 #define kMisspelledRange @"misspelledrange"
 #define kMisspelledWord  @"misspelledword"
@@ -90,8 +91,10 @@ SpellChecker * ourSharedSpellChecker = nil;
   
 // Check spelling in a UTF-8 string, printing results to standard 
 // output.
-- (BOOL) checkString: (NSString *) text
+- (BOOL) checkString: (NSString *) text inFile: (NSString *) path
   {
+  file = path;
+  
   NSArray * misspellings = [self findMisspellingsInString: text];
     
   if(!misspellings || ([misspellings count] == 0))
@@ -101,8 +104,25 @@ SpellChecker * ourSharedSpellChecker = nil;
     
     return YES;
     }
-    
-  NSEnumerator * enumerator = [misspellings objectEnumerator];
+  
+  NSArray * sorted =
+    [misspellings
+      sortedArrayWithOptions: 0
+      usingComparator:
+        ^NSComparisonResult(id obj1, id obj2)
+          {
+          NSDictionary * msp1 = obj1;
+          NSDictionary * msp2 = obj2;
+          
+          if([msp1[kMisspelledFile] isEqualToString: msp2[kMisspelledFile]])
+            return
+              [msp1[kMisspelledWord] compare: msp2[kMisspelledWord] options: 0];
+          
+          return
+            [msp1[kMisspelledFile] compare: msp2[kMisspelledFile] options: 0];
+          }];
+  
+  NSEnumerator * enumerator = [sorted objectEnumerator];
   
   id misspelling;
   
@@ -209,12 +229,14 @@ SpellChecker * ourSharedSpellChecker = nil;
   if(myIsVerbose)
     {
     if([misspelling objectForKey: kMisspelledWord])
-      printf("Line: %d, Misspelled word: %s\n",
+      printf("File: %s, Line: %d, Misspelled word: %s\n",
+        [[misspelling objectForKey: kMisspelledFile] UTF8String],
         [[misspelling objectForKey: kMisspelledLine] intValue],
         [[misspelling objectForKey: kMisspelledWord] UTF8String]);
 
     else if([misspelling objectForKey: kMisspelledLink])
-      printf("Line: %d, Bad link: %s, %s\n",
+      printf("File: %s, Line: %d, Bad link: %s, %s\n",
+        [[misspelling objectForKey: kMisspelledFile] UTF8String],
         [[misspelling objectForKey: kMisspelledLine] intValue],
         [[misspelling objectForKey: kMisspelledLink] UTF8String],
         [[misspelling objectForKey: kBadLinkResult] UTF8String]);
@@ -307,10 +329,10 @@ SpellChecker * ourSharedSpellChecker = nil;
     NSString * smartSingleQuote = 
       [NSString stringWithCharacters: smartSingleQuoteData length: 1];
       
-    [newText replaceOccurrencesOfString: @"'" withString: @" " 
-      options: NSLiteralSearch range: NSMakeRange(0, [newText length])];
+    //[newText replaceOccurrencesOfString: @"'" withString: @" "
+    //  options: NSLiteralSearch range: NSMakeRange(0, [newText length])];
     [newText replaceOccurrencesOfString: smartSingleQuote 
-      withString: @" " options: NSLiteralSearch 
+      withString: @"'" options: NSLiteralSearch 
       range: NSMakeRange(0, [newText length])];
       
     // The MacOS X spell checker.
@@ -350,6 +372,7 @@ SpellChecker * ourSharedSpellChecker = nil;
         // Add the misspelling to my result.
         [misspellings addObject: 
           [NSDictionary dictionaryWithObjectsAndKeys:
+            file, kMisspelledFile,
             [NSNumber numberWithUnsignedInteger: [currentLine number]],
               kMisspelledLine,
             [text substringWithRange: misspelled], kMisspelledWord,

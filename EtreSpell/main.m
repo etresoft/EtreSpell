@@ -152,7 +152,7 @@ int performSpellcheck(int argc, const char * argv[])
       printf("Checking spelling on %s:\n", 
         ([path isEqualToString: @"-"] ? "standard input" : argv[i]));
     
-    if(![spellChecker checkString: text])
+    if(![spellChecker checkString: text inFile: path])
       result = 1;
     
     if(verbose)
