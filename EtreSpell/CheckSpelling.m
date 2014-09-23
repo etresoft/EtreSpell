@@ -229,13 +229,13 @@ SpellChecker * ourSharedSpellChecker = nil;
   if(myIsVerbose)
     {
     if([misspelling objectForKey: kMisspelledWord])
-      printf("File: %s, Line: %d, Misspelled word: %s\n",
+      printf("File: %s, Line: %5d, Misspelled word: %s\n",
         [[misspelling objectForKey: kMisspelledFile] UTF8String],
         [[misspelling objectForKey: kMisspelledLine] intValue],
         [[misspelling objectForKey: kMisspelledWord] UTF8String]);
 
     else if([misspelling objectForKey: kMisspelledLink])
-      printf("File: %s, Line: %d, Bad link: %s, %s\n",
+      printf("File: %s, Line: %5d, Bad link: %s, %s\n",
         [[misspelling objectForKey: kMisspelledFile] UTF8String],
         [[misspelling objectForKey: kMisspelledLine] intValue],
         [[misspelling objectForKey: kMisspelledLink] UTF8String],
