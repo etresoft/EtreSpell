@@ -30,6 +30,9 @@
     
     // Should I do passthrough?
     BOOL myPassthrough;
+  
+    // The file being checked.
+    NSString * file;
   }
   
 // Return the shared spell checker.
@@ -54,7 +57,7 @@
 - (NSString *) language;
 
 // Performs a spell check of the input string.
-- (BOOL) checkString: (NSString *) text;
+- (BOOL) checkString: (NSString *) text inFile: (NSString *) path;
 
 // Returns an NSArray of strings representing ranges of misspelled
 // words. Returns null if there were no misspelled words.
