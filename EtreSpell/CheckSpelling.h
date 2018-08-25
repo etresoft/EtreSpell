@@ -27,6 +27,9 @@
     
     // An array of words to ignore.
     NSArray * myIgnoreArray;
+    
+    // Should I do passthrough?
+    BOOL myPassthrough;
   }
   
 // Return the shared spell checker.
@@ -74,5 +77,8 @@
 
 // Ignore words in an array.
 - (void) ignoreArray: (NSArray *) words;
+
+// Set passthrough?
+- (void) passthrough: (BOOL) passthrough;
 
 @end

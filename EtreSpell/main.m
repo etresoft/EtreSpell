@@ -16,6 +16,7 @@ NSString * learnWords = nil;
 NSString * forgetWords = nil;
 NSString * ignoreWords = nil;
 NSString * lang = nil;
+BOOL passthrough = false;
   
 BOOL argumentsOK = YES;
 
@@ -75,6 +76,8 @@ int main (int argc, const char * argv[])
       else if(!strncmp(argv[firstArgc], "--ignore=", 9))
         ignoreWords = [NSString stringWithCString: argv[firstArgc] + 9
           encoding: NSUTF8StringEncoding];
+      else if(!strcmp(argv[firstArgc], "--passthrough"))
+        passthrough = true;
       else
         {
         printf("Invalid argument '%s'\n", argv[firstArgc]);
@@ -118,7 +121,10 @@ int performSpellcheck(int argc, const char * argv[])
 
   if(ignoreWords)
     [spellChecker ignore: ignoreWords];
-
+    
+  if(passthrough)
+    [spellChecker passthrough: passthrough];
+    
   int result = 0;
   
   // Go through all the program arguments.
@@ -180,6 +186,7 @@ void usage(void)
     "forget\n");
   printf("    --ignore=<words> = Comma-delimited list of words to "
     "ignore\n");
+  printf("    --passthrough = Add ** around misspelled words\n");
   printf("  and [<files to check>] can be:\n");
   printf("    - = Standard input\n");
   }

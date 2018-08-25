@@ -88,28 +88,60 @@ SpellChecker * ourSharedSpellChecker = nil;
   return myLanguage;
   }
   
-// Check spelling in a UTF-8 string, printing results to standard 
+// Should I use passthrough mode?
+- (void) passthrough: (BOOL) passthrough
+  {
+  myPassthrough = passthrough;
+  }
+
+// Check spelling in a UTF-8 string, printing results to standard
 // output.
 - (BOOL) checkString: (NSString *) text
   {
   NSArray * misspellings = [self findMisspellingsInString: text];
     
+  BOOL result = NO;
+  
   if(!misspellings || ([misspellings count] == 0))
     {
     if(myIsVerbose)
       printf("No misspellings\n");
     
-    return YES;
+    result = YES;
     }
     
-  NSEnumerator * enumerator = [misspellings objectEnumerator];
-  
-  id misspelling;
-  
-  while(misspelling = [enumerator nextObject])
-    [self print: misspelling];
+  if(myPassthrough)
+    {
+    NSMutableString * modified = [text mutableCopy];
     
-  return NO;
+    NSEnumerator * enumerator = [misspellings reverseObjectEnumerator];
+    
+    id misspelling;
+    
+    while(misspelling = [enumerator nextObject])
+      {
+      NSRange range = NSRangeFromString(misspelling[kMisspelledRange]);
+      
+      NSString * tag =
+        [NSString
+          stringWithFormat: @"**%@**", misspelling[kMisspelledWord]];
+      
+      [modified replaceCharactersInRange: range withString: tag];
+      }
+      
+    printf("%s", [modified UTF8String]);
+    }
+  else
+    {
+    NSEnumerator * enumerator = [misspellings objectEnumerator];
+    
+    id misspelling;
+    
+    while(misspelling = [enumerator nextObject])
+      [self print: misspelling];
+    }
+    
+  return result;
   }
 
 // Validates a UTF-8 string and returns an array of all misspelled words
